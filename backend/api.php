@@ -1,15 +1,16 @@
 <?php
-include 'config.php';
 
+ob_start(); // Inicia o buffer de saída antes de qualquer coisa
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-// Permitir requisições OPTIONS para CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+
+include 'config.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -44,6 +45,11 @@ try {
         $stmt->execute([$id]);
 
         echo json_encode(["message" => "Registro excluído"]);
+
+    } elseif ($action == 'truncate') { 
+        $stmt = $pdo->prepare("TRUNCATE TABLE records");
+        $stmt->execute();
+        echo json_encode(["message" => "Todos os registros foram removidos"]);
 
     } elseif ($action == 'update') {
         $json = file_get_contents("php://input");

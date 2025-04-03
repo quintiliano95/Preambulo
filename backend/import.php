@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-include 'config.php'; // Agora pode incluir o arquivo com segurança
+include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["csv_file"])) {
     $file = $_FILES["csv_file"]["tmp_name"];

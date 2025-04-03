@@ -2,6 +2,10 @@
   <div class="container">
     <h2>Lista de Registros</h2>
     <input type="text" v-model="searchQuery" placeholder="Pesquisar..." />
+
+    <!-- Botão para zerar todos os registros -->
+    <button class="truncate-btn" @click="truncateTable">Zerar Registros</button>
+
     <table>
       <thead>
         <tr>
@@ -55,6 +59,16 @@ export default {
         console.error("Erro ao buscar registros:", error);
       }
     },
+    async truncateTable() {
+      if (confirm("Tem certeza que deseja apagar todos os registros?")) {
+        try {
+          await axios.get("http://localhost:8080/api.php?action=truncate");
+          this.records = []; // Limpa a lista na interface
+        } catch (error) {
+          console.error("Erro ao truncar tabela:", error);
+        }
+      }
+    },
     formatDate(date) {
       return new Date(date).toLocaleDateString("pt-BR");
     },
@@ -89,5 +103,16 @@ table {
 th, td {
   padding: 8px;
   border: 1px solid #ddd;
+}
+.truncate-btn {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.truncate-btn:hover {
+  background-color: darkred;
 }
 </style>
