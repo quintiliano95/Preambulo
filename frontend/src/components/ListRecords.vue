@@ -49,7 +49,7 @@ export default {
   methods: {
     async fetchRecords() {
       try {
-        const response = await axios.get("http://localhost/Preambulo/backend/api.php?action=list");
+        const response = await axios.get("http://localhost:8080/api.php?action=list");
         this.records = response.data;
       } catch (error) {
         console.error("Erro ao buscar registros:", error);
@@ -66,7 +66,7 @@ export default {
     },
     async deleteRecord(id) {
       if (confirm("Deseja excluir este registro?")) {
-        await axios.get(`http://localhost/Preambulo/backend/api.php?action=delete&id=${id}`);
+        await axios.get(`http://localhost:8080/api.php?action=delete&id=${id}`);
         this.fetchRecords();
       }
     },

@@ -31,7 +31,7 @@ export default {
       formData.append("csv_file", this.file);
 
       try {
-        const response = await axios.post("http://localhost/Preambulo/backend/import.php", formData);
+        const response = await axios.post("http://localhost:8080/import.php", formData);
         this.message = "Importação concluída!";
       } catch (error) {
         this.message = "Erro ao importar CSV.";

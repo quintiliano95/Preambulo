@@ -34,7 +34,7 @@ export default {
       }
 
       try {
-        const response = await axios.get(`http://localhost/Preambulo/backend/api.php?action=list&id=${id}`);
+        const response = await axios.get(`http://localhost:8080/api.php?action=list&id=${id}`);
         console.log("Dados carregados:", response.data); // Debug
         this.record = response.data;
       } catch (error) {
@@ -53,7 +53,7 @@ export default {
         console.log("Enviando dados para API:", this.record); // Debug
 
         const response = await axios.post(
-          "http://localhost/Preambulo/backend/api.php?action=update",
+          "http://localhost:8080/api.php?action=update",
           JSON.stringify(this.record),
           { headers: { "Content-Type": "application/json" } }
         );

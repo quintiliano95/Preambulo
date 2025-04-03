@@ -1,0 +1,17 @@
+[2025-04-03 15:21:59] Erro: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'preambulo_db.records' doesn't exist
+[2025-04-03 15:40:06] Recebido: {
+    "id": "1",
+    "nome": "aaaaaa",
+    "cpf": "849484844894",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93",
+    "created_at": "2025-04-03 15:39:22"
+}
