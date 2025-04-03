@@ -26,7 +26,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: preambulo_db
-      MYSQL_USER: root
+      MYSQL_USER: xamds
       MYSQL_PASSWORD: xamds
     ports:
       - "3306:3306"
