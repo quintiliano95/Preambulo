@@ -56,7 +56,6 @@
     </nav>
 
     <div class="container mt-4">
-        <!-- O conteúdo específico de cada página será inserido aqui -->
         <?php 
         $page = isset($_GET['page']) ? $_GET['page'] : 'import';
         switch($page) {
