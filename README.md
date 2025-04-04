@@ -45,4 +45,4 @@ Este comando irá:
 
 ## 💻 Acessando o projeto
 
-- **Frontend (Vue.js):** http://localhost:8080  
+- **Frontend (Vue.js):** http://localhost:3000
