@@ -3,24 +3,31 @@
     <h2 class="mb-4 text-center">Editar Registro</h2>
 
     <form @submit.prevent="updateRecord" class="border p-4 shadow-sm rounded bg-white">
-      <div class="mb-3">
-        <label for="nome" class="form-label">Nome:</label>
+      <div class="mb-3" v-for="(label, key) in labels" :key="key">
+        <label :for="key" class="form-label">{{ label }}:</label>
         <input
+          v-if="key !== 'data_vencimento' && key !== 'valor_parcela'"
           type="text"
-          id="nome"
-          v-model="record.nome"
           class="form-control"
+          :id="key"
+          v-model="record[key]"
           required
         />
-      </div>
-
-      <div class="mb-3">
-        <label for="cpf" class="form-label">CPF:</label>
         <input
-          type="text"
-          id="cpf"
-          v-model="record.cpf"
+          v-else-if="key === 'data_vencimento'"
+          type="date"
           class="form-control"
+          :id="key"
+          v-model="record[key]"
+          required
+        />
+        <input
+          v-else-if="key === 'valor_parcela'"
+          type="number"
+          step="0.01"
+          class="form-control"
+          :id="key"
+          v-model="record[key]"
           required
         />
       </div>
@@ -38,8 +45,37 @@ import axios from "axios";
 export default {
   data() {
     return {
-      record: { nome: "", cpf: "" },
+      record: {
+        id: "",
+        nome: "",
+        cpf: "",
+        endereco: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+        telefone: "",
+        email: "",
+        numero_parcela: null,
+        contrato: "",
+        data_vencimento: "",
+        valor_parcela: null,
+        created_at: ""
+      },
       message: "",
+      labels: {
+        nome: "Nome",
+        cpf: "CPF",
+        endereco: "Endereço",
+        bairro: "Bairro",
+        cidade: "Cidade",
+        estado: "Estado",
+        telefone: "Telefone",
+        email: "Email",
+        numero_parcela: "Número da Parcela",
+        contrato: "Contrato",
+        data_vencimento: "Data de Vencimento",
+        valor_parcela: "Valor da Parcela"
+      }
     };
   },
   methods: {
@@ -75,11 +111,11 @@ export default {
         console.error("Erro ao atualizar:", error);
         this.message = "Erro ao atualizar.";
       }
-    },
+    }
   },
   mounted() {
     this.fetchRecord();
-  },
+  }
 };
 </script>
 

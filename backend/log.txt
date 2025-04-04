@@ -1,0 +1,107 @@
+[2025-04-04 15:00:46] Recebido: {
+    "id": "1",
+    "nome": "Let\u00edcia Silveira",
+    "cpf": "dsdsd",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
+[2025-04-04 15:03:01] Recebido: {
+    "id": "1",
+    "nome": "gfggf",
+    "cpf": "gfgff",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1gfgf",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
+[2025-04-04 15:03:01] Erro: SQLSTATE[01000]: Warning: 1265 Data truncated for column 'numero_parcela' at row 1
+[2025-04-04 15:04:01] Recebido: {
+    "id": "1",
+    "nome": "gfggf",
+    "cpf": "323232",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1gfgf",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
+[2025-04-04 15:04:01] Erro: SQLSTATE[01000]: Warning: 1265 Data truncated for column 'numero_parcela' at row 1
+[2025-04-04 15:04:11] Recebido: {
+    "id": "1",
+    "nome": "sasasasa",
+    "cpf": "61497820502",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
+[2025-04-04 15:04:20] Recebido: {
+    "id": "1",
+    "nome": "sasasasa",
+    "cpf": "09449775966",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
+[2025-04-04 15:07:57] Recebido: {
+    "id": "1",
+    "nome": "Let\u00edcia Silveira",
+    "cpf": "12345678900",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "8482357971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
+[2025-04-04 15:10:12] Recebido: {
+    "id": "1",
+    "nome": "dsdssd",
+    "cpf": "09449775966",
+    "endereco": "Via Costela, 53",
+    "bairro": "Vila Nova",
+    "cidade": "Farias",
+    "estado": "DF",
+    "telefone": "+55 84 8235-7971",
+    "email": "noah30@yahoo.com.br",
+    "numero_parcela": "1",
+    "contrato": "1d5377bb-9eb7-4f54-8524-8152c418f67f",
+    "data_vencimento": "2024-05-20",
+    "valor_parcela": "414.93"
+}
