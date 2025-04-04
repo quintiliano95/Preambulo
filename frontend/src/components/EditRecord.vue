@@ -5,22 +5,17 @@
     <form @submit.prevent="updateRecord" class="border p-4 shadow-sm rounded bg-white">
       <div class="mb-3" v-for="(label, key) in labels" :key="key">
         <label :for="key" class="form-label">{{ label }}:</label>
+
         <input
-          v-if="key !== 'data_vencimento' && key !== 'valor_parcela'"
-          type="text"
-          class="form-control"
-          :id="key"
-          v-model="record[key]"
-          required
-        />
-        <input
-          v-else-if="key === 'data_vencimento'"
+          v-if="key === 'data_vencimento'"
           type="date"
           class="form-control"
           :id="key"
           v-model="record[key]"
+          :class="{ 'is-invalid': errors[key] }"
           required
         />
+
         <input
           v-else-if="key === 'valor_parcela'"
           type="number"
@@ -28,8 +23,23 @@
           class="form-control"
           :id="key"
           v-model="record[key]"
+          :class="{ 'is-invalid': errors[key] }"
           required
         />
+
+        <input
+          v-else
+          type="text"
+          class="form-control"
+          :id="key"
+          v-model="record[key]"
+          :class="{ 'is-invalid': errors[key] }"
+          required
+        />
+
+        <div v-if="errors[key]" class="invalid-feedback">
+          {{ errors[key] }}
+        </div>
       </div>
 
       <button type="submit" class="btn btn-success w-100">Atualizar</button>
@@ -62,13 +72,14 @@ export default {
         created_at: ""
       },
       message: "",
+      errors: {},
       labels: {
         nome: "Nome",
         cpf: "CPF",
         endereco: "Endereço",
         bairro: "Bairro",
         cidade: "Cidade",
-        estado: "Estado",
+        estado: "Estado (UF)",
         telefone: "Telefone",
         email: "Email",
         numero_parcela: "Número da Parcela",
@@ -94,9 +105,36 @@ export default {
         this.message = "Erro ao buscar registro.";
       }
     },
+
+    validateFields() {
+      this.errors = {};
+
+      if (!this.record.nome.trim()) this.errors.nome = "Nome é obrigatório.";
+      if (!/^\d{11}$/.test(this.record.cpf)) this.errors.cpf = "CPF deve conter 11 dígitos sendo números.";
+      if (!this.record.endereco.trim()) this.errors.endereco = "Endereço é obrigatório.";
+      if (!this.record.bairro.trim()) this.errors.bairro = "Bairro é obrigatório.";
+      if (!this.record.cidade.trim()) this.errors.cidade = "Cidade é obrigatória.";
+      if (!/^[A-Z]{2}$/i.test(this.record.estado)) this.errors.estado = "Estado deve ter 2 letras.";
+      // if (!/^\d{10,11}$/.test(this.record.telefone)) this.errors.telefone = "Telefone deve ter 10 ou 11 dígitos.";
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(this.record.email)) this.errors.email = "Email inválido.";
+      if (!Number.isInteger(Number(this.record.numero_parcela)) || this.record.numero_parcela <= 0)
+        this.errors.numero_parcela = "Número da parcela deve ser um número inteiro positivo.";
+      if (!this.record.contrato.trim()) this.errors.contrato = "Contrato é obrigatório.";
+      if (!this.record.data_vencimento) this.errors.data_vencimento = "Data de vencimento é obrigatória.";
+      if (!this.record.valor_parcela || this.record.valor_parcela <= 0)
+        this.errors.valor_parcela = "Valor da parcela deve ser maior que 0.";
+
+      return Object.keys(this.errors).length === 0;
+    },
+
     async updateRecord() {
       if (!this.record.id) {
         this.message = "Erro: ID não informado.";
+        return;
+      }
+
+      if (!this.validateFields()) {
+        this.message = "Corrija os erros antes de enviar.";
         return;
       }
 
