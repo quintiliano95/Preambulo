@@ -1,33 +1,61 @@
 <template>
-  <div class="container">
-    <h2>Lista de Registros</h2>
-    <input type="text" v-model="searchQuery" placeholder="Pesquisar..." />
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Lista de Registros</h2>
 
-    <button class="truncate-btn" @click="truncateTable">Zerar Registros</button>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          v-model="searchQuery"
+          placeholder="Pesquisar por nome ou CPF..."
+        />
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="btn btn-danger" @click="truncateTable">
+          Zerar Registros
+        </button>
+      </div>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Data Vencimento</th>
-          <th>Valor Parcela</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="record in filteredRecords" :key="record.id">
-          <td>{{ record.nome }}</td>
-          <td>{{ record.cpf }}</td>
-          <td>{{ formatDate(record.data_vencimento) }}</td>
-          <td>{{ formatCurrency(record.valor_parcela) }}</td>
-          <td>
-            <button @click="editRecord(record.id)">Editar</button>
-            <button @click="deleteRecord(record.id)">Excluir</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Data Vencimento</th>
+            <th>Valor Parcela</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="record in filteredRecords" :key="record.id">
+            <td>{{ record.nome }}</td>
+            <td>{{ record.cpf }}</td>
+            <td>{{ formatDate(record.data_vencimento) }}</td>
+            <td>{{ formatCurrency(record.valor_parcela) }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary me-2"
+                @click="editRecord(record.id)"
+              >
+                Editar
+              </button>
+              <button
+                class="btn btn-sm btn-danger"
+                @click="deleteRecord(record.id)"
+              >
+                Excluir
+              </button>
+            </td>
+          </tr>
+          <tr v-if="filteredRecords.length === 0">
+            <td colspan="5" class="text-center">Nenhum registro encontrado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -35,6 +63,7 @@
 import axios from "axios";
 
 export default {
+  name: "ListRecords",
   data() {
     return {
       records: [],
@@ -43,7 +72,7 @@ export default {
   },
   computed: {
     filteredRecords() {
-      return this.records.filter(record =>
+      return this.records.filter((record) =>
         record.nome.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         record.cpf.includes(this.searchQuery)
       );
@@ -62,7 +91,7 @@ export default {
       if (confirm("Tem certeza que deseja apagar todos os registros?")) {
         try {
           await axios.get("http://localhost:8080/api.php?action=truncate");
-          this.records = []; // Limpa a lista na interface
+          this.records = [];
         } catch (error) {
           console.error("Erro ao truncar tabela:", error);
         }
@@ -72,7 +101,10 @@ export default {
       return new Date(date).toLocaleDateString("pt-BR");
     },
     formatCurrency(value) {
-      return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(value);
     },
     editRecord(id) {
       this.$router.push({ name: "EditRecord", params: { id } });
@@ -89,29 +121,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.container {
-  text-align: center;
-  margin: 20px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 8px;
-  border: 1px solid #ddd;
-}
-.truncate-btn {
-  margin: 10px 0;
-  padding: 8px 12px;
-  background-color: red;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.truncate-btn:hover {
-  background-color: darkred;
-}
-</style>
