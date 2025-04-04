@@ -1,16 +1,34 @@
 <template>
-  <div class="container">
-    <h2>Editar Registro</h2>
-    <form @submit.prevent="updateRecord">
-      <label>Nome:</label>
-      <input type="text" v-model="record.nome" required />
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Editar Registro</h2>
 
-      <label>CPF:</label>
-      <input type="text" v-model="record.cpf" required />
+    <form @submit.prevent="updateRecord" class="border p-4 shadow-sm rounded bg-white">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input
+          type="text"
+          id="nome"
+          v-model="record.nome"
+          class="form-control"
+          required
+        />
+      </div>
 
-      <button type="submit">Atualizar</button>
+      <div class="mb-3">
+        <label for="cpf" class="form-label">CPF:</label>
+        <input
+          type="text"
+          id="cpf"
+          v-model="record.cpf"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">Atualizar</button>
     </form>
-    <p v-if="message">{{ message }}</p>
+
+    <p v-if="message" class="mt-3 alert alert-info text-center">{{ message }}</p>
   </div>
 </template>
 
@@ -20,7 +38,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      record: { nome: "", cpf: "" }, // Definir um objeto inicial
+      record: { nome: "", cpf: "" },
       message: "",
     };
   },
@@ -28,14 +46,12 @@ export default {
     async fetchRecord() {
       const id = this.$route.params.id;
       if (!id) {
-        console.error("ID não encontrado na URL.");
         this.message = "ID não encontrado na URL.";
         return;
       }
 
       try {
         const response = await axios.get(`http://localhost:8080/api.php?action=list&id=${id}`);
-        console.log("Dados carregados:", response.data); // Debug
         this.record = response.data;
       } catch (error) {
         console.error("Erro ao buscar registro:", error);
@@ -44,28 +60,22 @@ export default {
     },
     async updateRecord() {
       if (!this.record.id) {
-        console.error("Erro: ID não informado antes do envio.", this.record);
         this.message = "Erro: ID não informado.";
         return;
       }
 
       try {
-        console.log("Enviando dados para API:", this.record); // Debug
-
-        const response = await axios.post(
+        await axios.post(
           "http://localhost:8080/api.php?action=update",
           JSON.stringify(this.record),
           { headers: { "Content-Type": "application/json" } }
         );
-
-        console.log("Resposta da API:", response.data);
         this.message = "Registro atualizado com sucesso!";
       } catch (error) {
-        console.error("Erro ao atualizar:", error.response ? error.response.data : error);
+        console.error("Erro ao atualizar:", error);
         this.message = "Erro ao atualizar.";
       }
-    }
-
+    },
   },
   mounted() {
     this.fetchRecord();
@@ -75,16 +85,6 @@ export default {
 
 <style scoped>
 .container {
-  text-align: center;
-  margin: 20px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-  margin: auto;
-}
-input {
-  margin-bottom: 10px;
+  max-width: 600px;
 }
 </style>
