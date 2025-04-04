@@ -3,7 +3,6 @@
     <h2>Lista de Registros</h2>
     <input type="text" v-model="searchQuery" placeholder="Pesquisar..." />
 
-    <!-- Botão para zerar todos os registros -->
     <button class="truncate-btn" @click="truncateTable">Zerar Registros</button>
 
     <table>

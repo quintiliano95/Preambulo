@@ -1,9 +1,25 @@
 <template>
-  <div class="container">
-    <h2>Importar CSV</h2>
-    <input type="file" @change="handleFileUpload" accept=".csv" />
-    <button @click="uploadCsv">Enviar</button>
-    <p v-if="message">{{ message }}</p>
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+      <h2 class="text-center mb-4">Importar CSV</h2>
+      
+      <div class="mb-3">
+        <input
+          type="file"
+          class="form-control"
+          @change="handleFileUpload"
+          accept=".csv"
+        />
+      </div>
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" @click="uploadCsv">Enviar</button>
+      </div>
+
+      <div class="mt-3 text-center">
+        <p v-if="message" class="alert" :class="messageClass">{{ message }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,7 +31,13 @@ export default {
     return {
       file: null,
       message: "",
+      success: false,
     };
+  },
+  computed: {
+    messageClass() {
+      return this.success ? "alert-success" : "alert-danger";
+    },
   },
   methods: {
     handleFileUpload(event) {
@@ -24,6 +46,7 @@ export default {
     async uploadCsv() {
       if (!this.file) {
         this.message = "Selecione um arquivo CSV.";
+        this.success = false;
         return;
       }
 
@@ -31,10 +54,12 @@ export default {
       formData.append("csv_file", this.file);
 
       try {
-        const response = await axios.post("http://localhost:8080/import.php", formData);
+        await axios.post("http://localhost:8080/import.php", formData);
         this.message = "Importação concluída!";
+        this.success = true;
       } catch (error) {
         this.message = "Erro ao importar CSV.";
+        this.success = false;
       }
     },
   },
@@ -42,8 +67,8 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  text-align: center;
-  margin: 20px;
+.card {
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>

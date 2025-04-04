@@ -9,83 +9,12 @@
       <router-view @refresh-data="refreshData"></router-view>
     </div>
 
-    <!-- <notification-center :notifications="notifications" @remove-notification="removeNotification"></notification-center> -->
   </div>
 </template>
 
-<!-- <script>
-// import NotificationCenter from '@/components/NotificationCenter.vue'
-
-export default {
-  name: 'App',
-  components: {
-    // NotificationCenter
-  },
-  data() {
-    return {
-    //   notifications: []
-    }
-  },
-  methods: {
-    addNotification(type, message) {
-      const id = Date.now()
-      this.notifications.push({ id, type, message })
-      setTimeout(() => this.removeNotification(id), 5000)
-    },
-    removeNotification(id) {
-      this.notifications = this.notifications.filter(n => n.id !== id)
-    },
-    refreshData() {
-      // Evento para ser capturado pelos componentes filhos que precisam atualizar dados
-      this.$emit('refresh-data')
-    }
-  },
-  provide() {
-    // Disponibiliza métodos para componentes filhos
-    return {
-      addNotification: this.addNotification,
-      formatCpf: this.formatCpf,
-      formatPhone: this.formatPhone,
-      formatDate: this.formatDate,
-      formatCurrency: this.formatCurrency
-    }
-  },
-  methods: {
-    // Funções de formatação para serem compartilhadas
-    formatCpf(cpf) {
-      if (!cpf) return ''
-      return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
-    },
-    formatPhone(phone) {
-      if (!phone) return ''
-      const nums = phone.replace(/\D/g, '')
-      if (nums.length === 11) {
-        return nums.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
-      }
-      return nums
-    },
-    formatDate(date) {
-      if (!date) return ''
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    formatCurrency(value) {
-      if (!value) return 'R$ 0,00'
-      return parseFloat(value).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      })
-    },
-    parseCurrency(value) {
-      if (typeof value === 'number') return value
-      return parseFloat(value.replace('R$', '').replace('.', '').replace(',', '.').trim())
-    }
-  }
-}
-</script> -->
-
 <style>
-/* Estilos globais */
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -109,6 +38,8 @@ body {
   background-color: #2c3e50;
   padding: 1rem 2rem;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -136,7 +67,6 @@ body {
   flex: 1;
 }
 
-/* Estilos para formulários e tabelas */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -206,7 +136,6 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
